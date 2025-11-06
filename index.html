@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BI6ZONE Links</title>
+<style>
+  body {
+    font-family: "Poppins", sans-serif;
+    background-color: #0b0b0b;
+    color: #f5d76e;
+    text-align: center;
+    margin: 0;
+    padding: 40px 15px;
+  }
+
+  h1 {
+    font-size: 5em;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 0;
+    color: #ffd500;
+    text-shadow: 0 0 30px #ffd500, 0 0 60px #ffcc00;
+  }
+
+  .subtitle {
+    font-size: 1.2em;
+    color: #a08900;
+    margin-top: 10px;
+    margin-bottom: 40px;
+  }
+
+  .stats {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin-bottom: 50px;
+    color: #e6c84a;
+  }
+
+  .stats div {
+    text-align: center;
+  }
+
+  .stats span {
+    display: block;
+    font-size: 2em;
+    font-weight: 700;
+    color: #ffd500;
+    text-shadow: 0 0 20px #ffd500;
+  }
+
+  .card-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  /* Make entire card clickable */
+  .card-link {
+    width: 100%;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .card {
+    background-color: #141414;
+    border: 1px solid #3d3200;
+    border-radius: 12px;
+    width: 100%;
+    padding: 20px 25px;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.3s;
+    cursor: pointer;
+  }
+
+  .card:hover {
+    background-color: #191600;
+    box-shadow: 0 0 20px rgba(255, 213, 0, 0.3);
+    transform: scale(1.02);
+  }
+
+  .card .info {
+    color: #f8e18a;
+  }
+
+  .card .info .name {
+    font-weight: 600;
+    font-size: 1.2em;
+  }
+
+  .card .info .url {
+    color: #b39d32;
+    font-size: 0.9em;
+  }
+
+  .status {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    font-weight: 600;
+    text-align: center;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+  }
+
+  .online {
+    background-color: #00c851;
+    color: #fff;
+    box-shadow: 0 0 10px #00c851;
+  }
+
+  .offline {
+    background-color: #ff4444;
+    color: #fff;
+    box-shadow: 0 0 10px #ff4444;
+  }
+
+  footer {
+    margin-top: 50px;
+    font-size: 0.9em;
+    color: #9b8700;
+  }
+
+  footer .timestamp {
+    color: #d6b300;
+  }
+</style>
+</head>
+<body>
+
+  <h1>ALL DOMAINS</h1>
+  <div class="subtitle">& Status Monitor Dashboard</div>
+
+  <div class="stats">
+    <div>
+      <span id="onlineCount">0</span>
+      Online
+    </div>
+    <div>
+      <span id="offlineCount">0</span>
+      Offline
+    </div>
+    <div>
+      <span id="totalCount">0</span>
+      Total
+    </div>
+  </div>
+
+  <div class="card-container" id="siteList"></div>
+
+  <footer>
+    Last updated: <span class="timestamp" id="lastUpdated"></span><br>
+    ✨ made by Biggie ✨
+  </footer>
+
+  <script>
+    // 🟡 EDIT YOUR SITE LIST HERE
+    const sites = [
+      { name: "BI6ZONE GitHub", url: "https://bi66ie619.github.io", status: "online" },
+      { name: "BI6ZONE Vercel", url: "https://bi6zone.vercel.app", status: "offline" },
+      { name: "BI6ZONE Netlify", url: "https://bi6zone.netlify.app", status: "online" },
+      { name: "BI6ZONE Cloudflare", url: "https://bi6zone.pages.dev", status: "offline" },
+      { name: "BI6ZONE Mirror", url: "https://bi6zone-mirror.netlify.app", status: "offline" }
+    ];
+
+    const siteList = document.getElementById("siteList");
+    const onlineCount = document.getElementById("onlineCount");
+    const offlineCount = document.getElementById("offlineCount");
+    const totalCount = document.getElementById("totalCount");
+
+    let online = 0;
+    let offline = 0;
+
+    sites.forEach(site => {
+      const link = document.createElement("a");
+      link.href = site.url;
+      link.target = "_blank";
+      link.classList.add("card-link");
+
+      const card = document.createElement("div");
+      card.classList.add("card");
+
+      card.innerHTML = `
+        <div class="info">
+          <div class="name">${site.name}</div>
+          <div class="url">${site.url}</div>
+        </div>
+        <div class="status ${site.status}">
+          ${site.status.charAt(0).toUpperCase() + site.status.slice(1)}
+        </div>
+      `;
+
+      link.appendChild(card);
+      siteList.appendChild(link);
+
+      if (site.status === "online") online++;
+      else offline++;
+    });
+
+    onlineCount.textContent = online;
+    offlineCount.textContent = offline;
+    totalCount.textContent = sites.length;
+
+    // Timestamp
+    const now = new Date();
+    document.getElementById("lastUpdated").textContent =
+      now.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" });
+  </script>
+
+</body>
+</html>
