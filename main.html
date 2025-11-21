@@ -220,9 +220,13 @@
   }, 5000); // 5000 milliseconds = 5 seconds
 </script>
   <script>
-   window.onload = function() {
-      alert("Hello, as yall can see. The site is back up. Sorry for some staff if it seems irrisponsible for me todo so, but its just for the day so that people can pass through with their freetime. I will be keeping the text chat servers down but if you want, you can reroute through the text chat page to voice chat as thats all I will give yall to communicate with (for now). Hope yall enjoy today and have a good break. -Jericho");
-    };
+  // check if alert was already shown
+  if (!localStorage.getItem('alertShown')) {
+    alert("This alert will only show once! Hello, as yall can see. The site is back up. Sorry for some staff if it seems irrisponsible for me todo so, but its just for the day so that people can pass through with their freetime. I will be keeping the text chat servers down but if you want, you can reroute through the text chat page to voice chat as thats all I will give yall to communicate with (for now). Hope yall enjoy today and have a good break. -Jericho");
+
+    // mark alert as shown
+    localStorage.setItem('alertShown', 'true');
+  }
 </script>
 </body>
 </html>
